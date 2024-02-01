@@ -38,7 +38,7 @@ def return_figures(countries=country_default):
   country_filter = ';'.join(country_filter)
 
   # World Bank indicators of interest for pulling data
-  indicators = ['AG.LND.ARBL.HA.PC', 'SP.RUR.TOTL.ZS', 'SP.RUR.TOTL.ZS', 'AG.LND.FRST.ZS']
+  indicators = ['AG.LND.EL5M.RU.K2', 'SP.RUR.TOTL.ZS', 'SP.RUR.TOTL.ZS', 'AG.LND.EL5M.RU.ZS']
 
   data_frames = [] # stores the data frames with the indicator data of interest
   urls = [] # url endpoints for the World Bank API
@@ -56,9 +56,16 @@ def return_figures(countries=country_default):
     except:
       print('could not load data ', indicator)
 
+    print(data)
+
     for i, value in enumerate(data):
-      value['indicator'] = value['indicator']['value']
-      value['country'] = value['country']['value']
+      print("here")
+      try:
+         value['indicator'] = value['indicator']['value']
+         value['country'] = value['country']['value']
+      except TypeError:
+         print("oh no!")
+      
 
     data_frames.append(data)
   
@@ -88,13 +95,13 @@ def return_figures(countries=country_default):
           )
       )
 
-  layout_one = dict(title = 'Change in Hectares Arable Land <br> per Person 1990 to 2015',
+  layout_one = dict(title = 'Change in Square Kilometres <br> Where Elevation is Below 5 Metres <br> 1990 to 2015',
                 xaxis = dict(title = 'Year',
                   autotick=False, tick0=1990, dtick=25),
                 yaxis = dict(title = 'Hectares'),
                 )
 
-  # second chart plots ararble land for 2015 as a bar chart
+  # second chart plots for 2015 as a bar chart
   graph_two = []
   df_one.sort_values('value', ascending=False, inplace=True)
   df_one = df_one[df_one['date'] == '2015'] 
@@ -106,12 +113,12 @@ def return_figures(countries=country_default):
       )
   )
 
-  layout_two = dict(title = 'Hectares Arable Land per Person in 2015',
+  layout_two = dict(title = 'Square Kilometres <br> Where Elevation is Below 5 Metres in 2015',
                 xaxis = dict(title = 'Country',),
-                yaxis = dict(title = 'Hectares per person'),
+                yaxis = dict(title = 'Square Kilometres'),
                 )
 
-  # third chart plots percent of population that is rural from 1990 to 2015
+  # third chart plots percent of rural from 1990 to 2015
   graph_three = []
   df_three = pd.DataFrame(data_frames[1])
   df_three = df_three[(df_three['date'] == '2015') | (df_three['date'] == '1990')]
@@ -172,9 +179,9 @@ def return_figures(countries=country_default):
           )
       )
 
-  layout_four = dict(title = '% of Population that is Rural versus <br> % of Land that is Forested <br> 1990-2015',
+  layout_four = dict(title = '% of Population that is Rural versus <br> % of Land Where Elevation is Below 5 Metres <br> 1990-2015',
                 xaxis = dict(title = '% Population that is Rural', range=[0,100], dtick=10),
-                yaxis = dict(title = '% of Area that is Forested', range=[0,100], dtick=10),
+                yaxis = dict(title = '% of Area Where Elevation is Below 5 Metres', range=[0,10], dtick=10),
                 )
 
 
