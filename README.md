@@ -1,6 +1,12 @@
 # flask Data Dashboard
-
+ <center><img src="img\Screenshot 2024-02-04 115251.png"
+     alt="screenshot of dashboard"
+     height="500"
+     width: auto /> </center>
+     
 ## World Bank API Data Dashboard 
+
+The app can be viewed here https://duella.pythonanywhere.com/
 
 This is a flask app that visualizes data from the world bank API. Data is
 pulled directly from the API and then visualized using Plotly.
