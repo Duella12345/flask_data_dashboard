@@ -1,9 +1,9 @@
-# flask Data Dashboard
+# Flask Data Dashboard
  <center><img src="img\Screenshot 2024-02-04 115251.png"
      alt="screenshot of dashboard"
      height="500"
      width: auto /> </center>
-     
+
 ## World Bank API Data Dashboard 
 
 The app can be viewed here https://duella.pythonanywhere.com/
